@@ -16,6 +16,7 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_KEY: z.string().min(1),
     NEXT_PUBLIC_PROJECT_PLANNER_ID: z.string().min(1),
     NEXT_PUBLIC_SKIP_EVENTS: z.string().optional(),
+    NEXT_PUBLIC_APP_URL: z.string().url(),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -29,5 +30,6 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_KEY: process.env.NEXT_PUBLIC_STRIPE_KEY,
     NEXT_PUBLIC_PROJECT_PLANNER_ID: process.env.NEXT_PUBLIC_PROJECT_PLANNER_ID,
     NEXT_PUBLIC_SKIP_EVENTS: process.env.NEXT_PUBLIC_SKIP_EVENTS,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },
 });
