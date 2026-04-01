@@ -18,12 +18,11 @@ A production-ready monorepo starter template built with **Next.js 16**, **Prisma
 | Testing          | [Vitest](https://vitest.dev/) + Testing Library                            |
 | Linting          | [ESLint 9](https://eslint.org/) (flat config)                              |
 | Formatting       | [Prettier](https://prettier.io/) with Tailwind plugin                      |
-| CI               | [GitHub Actions](.github/workflows/ci.yml)                                 |
+| Env Validation   | [@t3-oss/env-nextjs](https://env.t3.gg/) with Zod                          |
 
 ## Project Structure
 
 ```
-├── .github/workflows/     # CI pipeline (lint, typecheck, build)
 ├── apps/
 │   └── nextjs/            # Next.js 16 application
 │       ├── prisma/        # Database schema
