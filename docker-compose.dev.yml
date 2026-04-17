@@ -55,6 +55,7 @@ services:
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-change-me-to-a-random-secret}
       BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
       NODE_ENV: development
+      DOCKER: "1"
       WATCHPACK_POLLING: "true"
     volumes:
       - ./apps/nextjs/src:/app/apps/nextjs/src
