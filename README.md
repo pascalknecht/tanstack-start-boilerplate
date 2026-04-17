@@ -172,6 +172,13 @@ docker compose -f docker-compose.dev.yml up -d
 
 This starts the app with Turbopack hot-reloading inside the container. Source files are bind-mounted so changes on your host are reflected immediately — no rebuild needed.
 
+If you previously started the production stack (or changed compose files), recreate containers to avoid stale port bindings:
+
+```bash
+docker compose down --remove-orphans
+docker compose -f docker-compose.dev.yml up -d --force-recreate
+```
+
 | Service    | Default host port            | Description                  |
 | ---------- | ---------------------------- | ---------------------------- |
 | `app`      | Dynamic (Docker-assigned)    | Next.js dev server           |
