@@ -39,37 +39,6 @@ services:
       postgres:
         condition: service_healthy
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    restart: unless-stopped
-    ports:
-      # Use 0 to publish to a random free host port.
-      - target: 3000
-        published: "${APP_PORT:-0}"
-        protocol: tcp
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/nextjs-boilerplate
-      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
-      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-change-me-to-a-random-secret}
-      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:3000}
-      NODE_ENV: development
-      DOCKER: "1"
-      WATCHPACK_POLLING: "true"
-    volumes:
-      - ./apps/nextjs/src:/app/apps/nextjs/src
-      - ./apps/nextjs/public:/app/apps/nextjs/public
-      - ./apps/nextjs/prisma:/app/apps/nextjs/prisma
-      - ./apps/nextjs/prisma.config.ts:/app/apps/nextjs/prisma.config.ts
-      - ./apps/nextjs/next.config.ts:/app/apps/nextjs/next.config.ts
-      - ./apps/nextjs/tsconfig.json:/app/apps/nextjs/tsconfig.json
-      - ./apps/nextjs/postcss.config.mjs:/app/apps/nextjs/postcss.config.mjs
-      - ./turbo.json:/app/turbo.json
-    depends_on:
-      postgres:
-        condition: service_healthy
-
 volumes:
   postgres_data:
   pgadmin_data:

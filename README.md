@@ -40,8 +40,7 @@ A production-ready monorepo starter template built with **Next.js 16**, **Prisma
 │   └── pgadmin/           # pgAdmin server pre-configuration
 ├── Dockerfile             # Multi-stage production build
 ├── Dockerfile.dev         # Development build with hot reload
-├── docker-compose.prod.yml # App + Postgres (production)
-├── docker-compose.dev.yml # App + Postgres + pgAdmin (development)
+├── docker-compose.dev.yml # Postgres + pgAdmin (development)
 ├── turbo.json             # Turborepo pipeline config
 ├── pnpm-workspace.yaml    # Workspace definition
 └── .env.example           # Environment variable template
@@ -162,73 +161,37 @@ To skip validation (e.g., during Docker builds), set `SKIP_ENV_VALIDATION=1`.
 
 ## Docker
 
-A full Docker setup is included. There are two modes: **production** (optimized build) and **development** (hot reload with volume mounts). pgAdmin is available in the development compose only. The files are intentionally standalone—run either `docker-compose.dev.yml` or `docker-compose.prod.yml`, not both together.
+Docker Compose is configured for development database tooling only:
 
-### Development mode
+- PostgreSQL
+- pgAdmin
+
+Start the stack:
 
 ```bash
 docker compose -f docker-compose.dev.yml up -d
 ```
 
-This starts the app with Turbopack hot-reloading inside the container. Source files are bind-mounted so changes on your host are reflected immediately — no rebuild needed.
-
-If you previously started the production stack (or changed compose files), recreate containers to avoid stale port bindings:
+If you changed compose settings and want to recreate containers:
 
 ```bash
 docker compose -f docker-compose.dev.yml down --remove-orphans
 docker compose -f docker-compose.dev.yml up -d --force-recreate
 ```
 
-| Service    | Default host port            | Description                  |
-| ---------- | ---------------------------- | ---------------------------- |
-| `app`      | Dynamic (Docker-assigned)    | Next.js dev server           |
-| `postgres` | Dynamic (Docker-assigned)    | PostgreSQL 17 database       |
-| `pgadmin`  | Dynamic (Docker-assigned)    | pgAdmin database UI          |
+| Service    | Default host port         | Description            |
+| ---------- | ------------------------- | ---------------------- |
+| `postgres` | Dynamic (Docker-assigned) | PostgreSQL 17 database |
+| `pgadmin`  | Dynamic (Docker-assigned) | pgAdmin database UI    |
 
-Docker now publishes each service on a random free host port by default. To check which port was assigned:
+Check assigned host ports:
 
 ```bash
-docker compose -f docker-compose.dev.yml port app 3000
 docker compose -f docker-compose.dev.yml port postgres 5432
 docker compose -f docker-compose.dev.yml port pgadmin 80
 ```
 
-After starting for the first time, push the database schema:
-
-```bash
-docker compose -f docker-compose.dev.yml exec app pnpm db:push
-```
-
-To rebuild the dev image (e.g., after adding dependencies):
-
-```bash
-docker compose -f docker-compose.dev.yml up -d --build app
-```
-
-### Production mode
-
-```bash
-docker compose -f docker-compose.prod.yml up -d
-```
-
-This starts two services:
-
-| Service    | URL                          | Description                  |
-| ---------- | ---------------------------- | ---------------------------- |
-| `app`      | http://localhost:3000        | Next.js application          |
-| `postgres` | `localhost:5432`             | PostgreSQL 17 database       |
-
 **Postgres credentials:** `postgres` / `postgres` (database: `nextjs-boilerplate`)
-
-### Running only Postgres (for local development)
-
-If you want to develop locally but use Docker for the database:
-
-```bash
-docker compose -f docker-compose.prod.yml up -d postgres
-```
-
-Then use the default `DATABASE_URL` from `.env.example` which points to `localhost:5432`.
 
 ### Push the database schema
 
@@ -239,26 +202,12 @@ pnpm db:generate
 pnpm db:push
 ```
 
-### Rebuild the app image
-
-```bash
-docker compose -f docker-compose.prod.yml up -d --build app
-```
-
 ### Environment variables
-
-The production `app` service reads environment variables from `docker-compose.prod.yml`. To override or add variables (e.g., Stripe keys), either edit the `environment` section in `docker-compose.prod.yml` or create a `.env` file and reference it with `env_file` in the compose config.
 
 In development compose (`docker-compose.dev.yml`), you can pin host ports via compose environment variables:
 
-- `APP_PORT` (default: `0`, random host port mapped to container `3000`)
 - `POSTGRES_PORT` (default: `0`, random host port mapped to container `5432`)
-- `PGADMIN_PORT` (dev only, default: `0`, random host port mapped to container `80`)
-
-In development mode, if the app is assigned a non-`3000` host port, also set:
-
-- `NEXT_PUBLIC_APP_URL` (for example, `http://localhost:3001`)
-- `BETTER_AUTH_URL` (for example, `http://localhost:3001`)
+- `PGADMIN_PORT` (default: `0`, random host port mapped to container `80`)
 
 ## Deployment
 
