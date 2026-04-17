@@ -7,8 +7,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: nextjs-boilerplate
     ports:
-      # Automatically picks the first free host port in this range.
-      - "${POSTGRES_PORT_RANGE:-5432-5532}:5432"
+      # Use 0 to publish to a random free host port.
+      - target: 5432
+        published: "${POSTGRES_PORT:-0}"
+        protocol: tcp
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -26,8 +28,10 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: "False"
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
     ports:
-      # Automatically picks the first free host port in this range.
-      - "${PGADMIN_PORT_RANGE:-5050-5150}:80"
+      # Use 0 to publish to a random free host port.
+      - target: 80
+        published: "${PGADMIN_PORT:-0}"
+        protocol: tcp
     volumes:
       - pgadmin_data:/var/lib/pgadmin
       - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
@@ -41,8 +45,10 @@ services:
       dockerfile: Dockerfile.dev
     restart: unless-stopped
     ports:
-      # Automatically picks the first free host port in this range.
-      - "${APP_PORT_RANGE:-3000-3100}:3000"
+      # Use 0 to publish to a random free host port.
+      - target: 3000
+        published: "${APP_PORT:-0}"
+        protocol: tcp
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/nextjs-boilerplate
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
