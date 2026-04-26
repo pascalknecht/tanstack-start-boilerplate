@@ -1,9 +1,17 @@
-import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { authClient } from '../lib/auth-client'
+import { getSession } from '../lib/auth-helpers'
 
 export const Route = createFileRoute('/login')({
+  beforeLoad: async () => {
+    const session = await getSession()
+
+    if (session) {
+      throw redirect({ to: '/dashboard' })
+    }
+  },
   component: LoginPage,
 })
 
@@ -31,7 +39,7 @@ function LoginPage() {
       return
     }
 
-    navigate({ to: '/' })
+    navigate({ to: '/dashboard' })
   }
 
   return (
@@ -91,7 +99,7 @@ function LoginPage() {
 
         <p className="mt-5 text-sm text-[var(--sea-ink-soft)]">
           Need an account?{' '}
-          <Link to="/register" className="font-semibold">
+          <Link to="/register" search={{ redirect: '/dashboard' }} className="font-semibold">
             Register
           </Link>
         </p>
