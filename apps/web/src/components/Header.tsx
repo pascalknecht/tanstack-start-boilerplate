@@ -51,23 +51,19 @@ export default function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-1.5 sm:ml-0 sm:gap-2">
-          {!isPending && !session ? (
-            <>
-              <Link
-                to="/login"
-                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                search={{ redirect: '/' }}
-                className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:bg-[var(--link-bg-hover)]"
-              >
-                Get Started
-              </Link>
-            </>
-          ) : null}
+          <Link
+            to="/login"
+            className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+          >
+            Login
+          </Link>
+          <Link
+            to="/register"
+            search={{ redirect: '/' }}
+            className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:bg-[var(--link-bg-hover)]"
+          >
+            Get Started
+          </Link>
           {!isPending && session ? (
             <>
               <span className="hidden text-xs font-semibold text-[var(--sea-ink-soft)] sm:inline">
