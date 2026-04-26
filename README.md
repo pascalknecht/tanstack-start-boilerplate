@@ -19,7 +19,7 @@ A production-ready monorepo starter built around **TanStack Start**, **TanStack 
 
 ```text
 ├── apps/
-│   └── nextjs/               # TanStack Start application
+│   └── web/                  # TanStack Start application
 │       ├── public/
 │       ├── src/
 │       │   ├── components/   # Starter UI components
@@ -82,7 +82,7 @@ Run these from the monorepo root:
 | `pnpm format`       | Format code with Prettier                       |
 | `pnpm format:check` | Check code formatting                           |
 
-For app-scoped commands, run from `apps/nextjs`:
+For app-scoped commands, run from `apps/web`:
 
 | Command         | Description                               |
 | --------------- | ----------------------------------------- |
@@ -95,7 +95,7 @@ For app-scoped commands, run from `apps/nextjs`:
 
 ## Routing
 
-Routes are defined as files in `apps/nextjs/src/routes`. TanStack Router generates a route tree automatically and keeps route typing in sync.
+Routes are defined as files in `apps/web/src/routes`. TanStack Router generates a route tree automatically and keeps route typing in sync.
 
 ## Docker
 
