@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: nextjs-boilerplate
+      POSTGRES_DB: tanstack_start_boilerplate
     ports:
       # Use POSTGRES_PORT to override the default stable host port.
       - target: 5432

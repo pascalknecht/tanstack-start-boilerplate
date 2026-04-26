@@ -5,7 +5,7 @@ RUN corepack enable && corepack prepare pnpm@10.6.2 --activate
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
-COPY apps/nextjs/package.json ./apps/nextjs/package.json
+COPY apps/web/package.json ./apps/web/package.json
 
 RUN pnpm install --frozen-lockfile
 
@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "pnpm db:generate && pnpm dev"]
+CMD ["pnpm", "dev"]
