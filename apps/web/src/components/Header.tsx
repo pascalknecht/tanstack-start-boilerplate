@@ -1,7 +1,6 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { authClient } from '../lib/auth-client'
-import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
   const navigate = useNavigate()
@@ -79,7 +78,6 @@ export default function Header() {
             </svg>
           </a>
 
-          <ThemeToggle />
           {!isPending && !session ? (
             <>
               <Link
