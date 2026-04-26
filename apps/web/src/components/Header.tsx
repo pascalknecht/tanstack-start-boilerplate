@@ -1,7 +1,20 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useState } from 'react'
+import { authClient } from '../lib/auth-client'
 import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
+  const navigate = useNavigate()
+  const { data: session, isPending } = authClient.useSession()
+  const [isSigningOut, setIsSigningOut] = useState(false)
+
+  async function onSignOut() {
+    setIsSigningOut(true)
+    await authClient.signOut()
+    setIsSigningOut(false)
+    navigate({ to: '/login' })
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
       <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
@@ -63,6 +76,54 @@ export default function Header() {
           >
             About
           </Link>
+          <Link
+            to="/dashboard"
+            className="nav-link"
+            activeProps={{ className: 'nav-link is-active' }}
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="/settings"
+            className="nav-link"
+            activeProps={{ className: 'nav-link is-active' }}
+          >
+            Settings
+          </Link>
+          {!isPending && !session ? (
+            <>
+              <Link
+                to="/login"
+                className="nav-link"
+                activeProps={{ className: 'nav-link is-active' }}
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                search={{ redirect: '/' }}
+                className="nav-link"
+                activeProps={{ className: 'nav-link is-active' }}
+              >
+                Register
+              </Link>
+            </>
+          ) : null}
+          {!isPending && session ? (
+            <>
+              <span className="text-xs font-semibold text-[var(--sea-ink-soft)]">
+                {session.user.name}
+              </span>
+              <button
+                type="button"
+                onClick={onSignOut}
+                disabled={isSigningOut}
+                className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-xs text-[var(--sea-ink)] transition hover:bg-[var(--link-bg-hover)] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSigningOut ? 'Signing out...' : 'Sign out'}
+              </button>
+            </>
+          ) : null}
           <a
             href="https://tanstack.com/start/latest/docs/framework/react/overview"
             className="nav-link"
