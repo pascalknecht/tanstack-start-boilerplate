@@ -1,16 +1,28 @@
-import { Link } from '@tanstack/react-router'
-import ThemeToggle from './ThemeToggle'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useState } from 'react'
+import { authClient } from '../lib/auth-client'
 
 export default function Header() {
+  const navigate = useNavigate()
+  const { data: session, isPending } = authClient.useSession()
+  const [isSigningOut, setIsSigningOut] = useState(false)
+
+  async function onSignOut() {
+    setIsSigningOut(true)
+    await authClient.signOut()
+    setIsSigningOut(false)
+    navigate({ to: '/login' })
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
       <nav className="page-wrap flex items-center justify-between gap-3 py-3 sm:py-4">
         <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(15,23,42,0.08)] sm:px-4 sm:py-2"
           >
-            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)]" />
+            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#0f172a,#334155)]" />
             TanStack Start
           </Link>
         </h2>
@@ -66,20 +78,44 @@ export default function Header() {
             </svg>
           </a>
 
-          <ThemeToggle />
-          <Link
-            to="/login"
-            className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            search={{ redirect: '/' }}
-            className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.2)] px-3 py-1.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:bg-[rgba(79,184,178,0.3)]"
-          >
-            Get Started
-          </Link>
+          {!isPending && !session ? (
+            <>
+              <Link
+                to="/login"
+                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                search={{ redirect: '/' }}
+                className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:bg-[var(--link-bg-hover)]"
+              >
+                Get Started
+              </Link>
+            </>
+          ) : null}
+          {!isPending && session ? (
+            <>
+              <span className="hidden text-xs font-semibold text-[var(--sea-ink-soft)] sm:inline">
+                {session.user.name}
+              </span>
+              <Link
+                to="/dashboard"
+                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+              >
+                Dashboard
+              </Link>
+              <button
+                type="button"
+                onClick={onSignOut}
+                disabled={isSigningOut}
+                className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-xs text-[var(--sea-ink)] transition hover:bg-[var(--link-bg-hover)] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSigningOut ? 'Signing out...' : 'Sign out'}
+              </button>
+            </>
+          ) : null}
         </div>
       </nav>
     </header>

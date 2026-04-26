@@ -62,7 +62,7 @@ function LoginPage() {
               required
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              className="w-full rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] px-3 py-2 text-sm outline-none ring-[var(--lagoon)] focus:ring-2"
+              className="w-full rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] px-3 py-2 text-sm outline-none ring-[rgba(15,23,42,0.2)] focus:ring-2"
               placeholder="your_username"
               autoComplete="username"
             />
@@ -77,7 +77,7 @@ function LoginPage() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] px-3 py-2 text-sm outline-none ring-[var(--lagoon)] focus:ring-2"
+              className="w-full rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] px-3 py-2 text-sm outline-none ring-[rgba(15,23,42,0.2)] focus:ring-2"
               autoComplete="current-password"
             />
           </div>
@@ -91,7 +91,7 @@ function LoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-full border border-[rgba(50,143,151,0.35)] bg-[rgba(79,184,178,0.2)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-full border border-[rgba(15,23,42,0.2)] bg-[rgba(15,23,42,0.06)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] transition hover:-translate-y-0.5 hover:bg-[rgba(15,23,42,0.1)] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? 'Signing in...' : 'Sign in'}
           </button>
