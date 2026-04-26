@@ -1,5 +1,5 @@
 import { Link, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { authClient } from '../lib/auth-client'
 import ThemeToggle from './ThemeToggle'
 
@@ -7,6 +7,11 @@ export default function Header() {
   const navigate = useNavigate()
   const { data: session, isPending } = authClient.useSession()
   const [isSigningOut, setIsSigningOut] = useState(false)
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
 
   async function onSignOut() {
     setIsSigningOut(true)
@@ -80,7 +85,7 @@ export default function Header() {
           </a>
 
           <ThemeToggle />
-          {!isPending && !session ? (
+          {isHydrated && !isPending && !session ? (
             <>
               <Link
                 to="/login"
@@ -97,7 +102,7 @@ export default function Header() {
               </Link>
             </>
           ) : null}
-          {!isPending && session ? (
+          {isHydrated && !isPending && session ? (
             <>
               <span className="hidden text-xs font-semibold text-[var(--sea-ink-soft)] sm:inline">
                 {session.user.name}
@@ -117,6 +122,12 @@ export default function Header() {
                 {isSigningOut ? 'Signing out...' : 'Sign out'}
               </button>
             </>
+          ) : null}
+          {!isHydrated || isPending ? (
+            <div
+              aria-hidden="true"
+              className="h-9 w-[9.5rem] rounded-full border border-transparent"
+            />
           ) : null}
         </div>
       </nav>
