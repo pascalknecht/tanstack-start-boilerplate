@@ -63,7 +63,7 @@ function RegisterPage() {
               required
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="mt-1 w-full rounded-xl border border-[var(--line)] bg-white/70 px-3 py-2 text-sm outline-none focus:border-[var(--lagoon-deep)]"
+              className="mt-1 w-full rounded-xl border border-[var(--line)] bg-white/70 px-3 py-2 text-sm outline-none focus:border-slate-400"
               placeholder="Your name"
             />
           </label>
@@ -74,7 +74,7 @@ function RegisterPage() {
               required
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              className="mt-1 w-full rounded-xl border border-[var(--line)] bg-white/70 px-3 py-2 text-sm outline-none focus:border-[var(--lagoon-deep)]"
+              className="mt-1 w-full rounded-xl border border-[var(--line)] bg-white/70 px-3 py-2 text-sm outline-none focus:border-slate-400"
               placeholder="jane_doe"
             />
           </label>
@@ -87,7 +87,7 @@ function RegisterPage() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="mt-1 w-full rounded-xl border border-[var(--line)] bg-white/70 px-3 py-2 text-sm outline-none focus:border-[var(--lagoon-deep)]"
+              className="mt-1 w-full rounded-xl border border-[var(--line)] bg-white/70 px-3 py-2 text-sm outline-none focus:border-slate-400"
               placeholder="********"
             />
           </label>
@@ -101,7 +101,7 @@ function RegisterPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full rounded-xl border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.2)] px-4 py-2 text-sm font-semibold text-[var(--lagoon-deep)] transition hover:bg-[rgba(79,184,178,0.3)] disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-xl border border-slate-300 bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? "Creating account..." : "Register"}
           </button>
@@ -112,7 +112,7 @@ function RegisterPage() {
           <Link
             to="/login"
             search={{ redirect }}
-            className="font-semibold text-[var(--lagoon-deep)]"
+            className="font-semibold text-slate-900"
           >
             Login
           </Link>

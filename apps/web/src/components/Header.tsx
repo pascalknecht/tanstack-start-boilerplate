@@ -21,9 +21,9 @@ export default function Header() {
         <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(15,23,42,0.08)] sm:px-4 sm:py-2"
           >
-            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)]" />
+            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#0f172a,#334155)]" />
             TanStack Start
           </Link>
         </h2>
@@ -91,7 +91,7 @@ export default function Header() {
               <Link
                 to="/register"
                 search={{ redirect: '/' }}
-                className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.2)] px-3 py-1.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:bg-[rgba(79,184,178,0.3)]"
+                className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:bg-[var(--link-bg-hover)]"
               >
                 Get Started
               </Link>
