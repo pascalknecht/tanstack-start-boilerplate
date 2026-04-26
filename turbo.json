@@ -3,46 +3,27 @@
   "ui": "tui",
   "globalEnv": [
     "CI",
-    "DATABASE_URL",
     "NODE_ENV",
-    "WATCHPACK_POLLING",
-    "SKIP_ENV_VALIDATION",
-    "BETTER_AUTH_SECRET",
-    "BETTER_AUTH_URL",
-    "GOOGLE_CLIENT_ID",
-    "GOOGLE_CLIENT_SECRET",
-    "STRIPE_API_KEY",
-    "STRIPE_WEBHOOK_SECRET",
-    "STRIPE_PRICE_ID",
-    "NEXT_PUBLIC_APP_URL",
-    "NEXT_PUBLIC_STRIPE_KEY",
     "DOCKER",
     "VERCEL",
     "VERCEL_URL"
   ],
   "tasks": {
-    "db:generate": {
-      "cache": false
-    },
-    "db:push": {
-      "cache": false
-    },
     "build": {
-      "dependsOn": ["^db:generate"],
+      "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".output/**", ".vinxi/**", ".tanstack/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "typecheck": {
-      "dependsOn": ["^db:generate"]
+      "dependsOn": ["^typecheck"]
     },
     "test": {
-      "dependsOn": ["^db:generate"]
+      "dependsOn": ["^test"]
     },
     "dev": {
-      "dependsOn": ["^db:generate"],
       "cache": false
     }
   }

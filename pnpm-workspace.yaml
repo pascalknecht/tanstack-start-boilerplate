@@ -3,8 +3,5 @@ packages:
   # Uncomment when you add shared packages:
   # - packages/*
 onlyBuiltDependencies:
-  - "@prisma/client"
-  - "@prisma/engines"
   - esbuild
-  - prisma
-  - sharp
+  - lightningcss

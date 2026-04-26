@@ -9,9 +9,12 @@ node_modules
 # testing
 /coverage
 
-# next.js
-.next/
-out/
+# TanStack Start / Vite outputs
+.tanstack/
+.vinxi/
+.output/
+dist/
+dist-ssr/
 
 # production
 build
