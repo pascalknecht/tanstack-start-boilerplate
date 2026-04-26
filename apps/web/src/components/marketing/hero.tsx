@@ -40,7 +40,7 @@ function ScreenCard({
         <div className="flex gap-1">
           <div className="size-2 rounded-full bg-red-400" />
           <div className="size-2 rounded-full bg-yellow-400" />
-          <div className="size-2 rounded-full bg-green-400" />
+          <div className="size-2 rounded-full bg-slate-400" />
         </div>
         <span className="text-[10px] font-medium text-[var(--sea-ink-soft)]">
           {title}
@@ -54,7 +54,6 @@ function ScreenCard({
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden pb-32 pt-20 md:pb-40 md:pt-28">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,184,178,0.15),transparent_60%)]" />
 
       <div className="container relative mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
@@ -82,7 +81,7 @@ export function HeroSection() {
             <Link
               to="/register"
               search={{ redirect: '/dashboard' }}
-              className="inline-flex items-center gap-2 rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.2)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.3)]"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--sea-ink)] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#1e293b]"
             >
               Start Free Trial
               <ArrowRight className="size-4" />
@@ -108,7 +107,7 @@ export function HeroSection() {
                 <div className="flex gap-1.5">
                   <div className="size-2.5 rounded-full bg-red-400" />
                   <div className="size-2.5 rounded-full bg-yellow-400" />
-                  <div className="size-2.5 rounded-full bg-green-400" />
+                  <div className="size-2.5 rounded-full bg-slate-400" />
                 </div>
                 <span className="text-xs text-[var(--sea-ink-soft)]">
                   Dashboard
@@ -117,19 +116,19 @@ export function HeroSection() {
               <div className="grid grid-cols-3 gap-4 p-5">
                 <div className="space-y-3">
                   <div className="h-3 w-3/4 rounded bg-[var(--line)]" />
-                  <div className="h-8 rounded-lg bg-[rgba(79,184,178,0.2)]" />
+                  <div className="h-8 rounded-lg bg-[#e2e8f0]" />
                   <div className="h-8 rounded-lg bg-[var(--line)]" />
                   <div className="h-8 rounded-lg bg-[var(--line)]" />
                 </div>
                 <div className="col-span-2 space-y-3">
                   <div className="flex gap-3">
-                    <div className="h-20 flex-1 rounded-lg bg-[rgba(79,184,178,0.1)] p-3">
+                    <div className="h-20 flex-1 rounded-lg bg-[#f8fafc] p-3">
                       <div className="mb-2 h-2 w-12 rounded bg-[var(--line)]" />
                       <div className="text-xl font-bold text-[var(--sea-ink-soft)]">
                         2,847
                       </div>
                     </div>
-                    <div className="h-20 flex-1 rounded-lg bg-[rgba(79,184,178,0.1)] p-3">
+                    <div className="h-20 flex-1 rounded-lg bg-[#f8fafc] p-3">
                       <div className="mb-2 h-2 w-12 rounded bg-[var(--line)]" />
                       <div className="text-xl font-bold text-[var(--sea-ink-soft)]">
                         94.2%
@@ -142,7 +141,7 @@ export function HeroSection() {
                         (h, i) => (
                           <div
                             key={i}
-                            className="flex-1 rounded-t bg-[rgba(79,184,178,0.35)]"
+                            className="flex-1 rounded-t bg-[#cbd5e1]"
                             style={{ height: `${h}%` }}
                           />
                         ),
@@ -162,14 +161,14 @@ export function HeroSection() {
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
                 <span className="text-xs text-[var(--sea-ink-soft)]">MRR</span>
-                <span className="text-xs font-medium text-green-600">+12.5%</span>
+                <span className="text-xs font-medium text-slate-600">+12.5%</span>
               </div>
               <div className="text-lg font-bold text-[var(--sea-ink)]">$48.2K</div>
               <div className="flex h-8 items-end gap-0.5">
                 {[30, 45, 35, 60, 50, 70, 65, 80, 75, 90].map((h, i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-t bg-[rgba(79,184,178,0.35)]"
+                    className="flex-1 rounded-t bg-[#cbd5e1]"
                     style={{ height: `${h}%` }}
                   />
                 ))}
@@ -185,12 +184,12 @@ export function HeroSection() {
             <div className="space-y-2">
               {['Sarah K.', 'Mike R.', 'Anna L.'].map((name, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <div className="size-5 rounded-full bg-[rgba(79,184,178,0.2)]" />
+                  <div className="size-5 rounded-full bg-[#e2e8f0]" />
                   <div className="flex-1">
                     <div className="text-[10px] font-medium">{name}</div>
                     <div className="h-1 rounded bg-[var(--line)]">
                       <div
-                        className="h-1 rounded bg-[rgba(79,184,178,0.55)]"
+                        className="h-1 rounded bg-[#94a3b8]"
                         style={{ width: `${80 - i * 15}%` }}
                       />
                     </div>
@@ -215,7 +214,7 @@ export function HeroSection() {
                   key={i}
                   className="flex items-center gap-1.5 rounded bg-[var(--surface)] px-2 py-1"
                 >
-                  <div className="size-1.5 rounded-full bg-green-500" />
+                  <div className="size-1.5 rounded-full bg-slate-500" />
                   <span className="text-[9px] text-[var(--sea-ink-soft)]">
                     {msg}
                   </span>
@@ -235,7 +234,7 @@ export function HeroSection() {
                   key={i}
                   className="flex size-8 items-center justify-center rounded-lg bg-[var(--surface)]"
                 >
-                  <div className="size-4 rounded bg-[rgba(79,184,178,0.2)]" />
+                  <div className="size-4 rounded bg-[#e2e8f0]" />
                 </div>
               ))}
             </div>
