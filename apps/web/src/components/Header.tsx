@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
-      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
+      <nav className="page-wrap flex items-center justify-between gap-3 py-3 sm:py-4">
         <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
           <Link
             to="/"
@@ -27,6 +27,27 @@ export default function Header() {
             TanStack Start
           </Link>
         </h2>
+
+        <div className="hidden items-center gap-1 md:flex">
+          <a
+            href="#features"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+          >
+            Features
+          </a>
+          <a
+            href="#how-it-works"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+          >
+            How It Works
+          </a>
+          <a
+            href="#pricing"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+          >
+            Pricing
+          </a>
+        </div>
 
         <div className="ml-auto flex items-center gap-1.5 sm:ml-0 sm:gap-2">
           <a
@@ -59,61 +80,34 @@ export default function Header() {
           </a>
 
           <ThemeToggle />
-        </div>
-
-        <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
-          <Link
-            to="/"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
-          >
-            About
-          </Link>
-          <Link
-            to="/dashboard"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
-          >
-            Dashboard
-          </Link>
-          <Link
-            to="/settings"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
-          >
-            Settings
-          </Link>
           {!isPending && !session ? (
             <>
               <Link
                 to="/login"
-                className="nav-link"
-                activeProps={{ className: 'nav-link is-active' }}
+                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
               >
                 Login
               </Link>
               <Link
                 to="/register"
                 search={{ redirect: '/' }}
-                className="nav-link"
-                activeProps={{ className: 'nav-link is-active' }}
+                className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.2)] px-3 py-1.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:bg-[rgba(79,184,178,0.3)]"
               >
-                Register
+                Get Started
               </Link>
             </>
           ) : null}
           {!isPending && session ? (
             <>
-              <span className="text-xs font-semibold text-[var(--sea-ink-soft)]">
+              <span className="hidden text-xs font-semibold text-[var(--sea-ink-soft)] sm:inline">
                 {session.user.name}
               </span>
+              <Link
+                to="/dashboard"
+                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+              >
+                Dashboard
+              </Link>
               <button
                 type="button"
                 onClick={onSignOut}
@@ -124,14 +118,6 @@ export default function Header() {
               </button>
             </>
           ) : null}
-          <a
-            href="https://tanstack.com/start/latest/docs/framework/react/overview"
-            className="nav-link"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Docs
-          </a>
         </div>
       </nav>
     </header>
