@@ -1,13 +1,17 @@
-import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import { useState } from 'react'
 import { authClient } from '../lib/auth-client'
 
 export const Route = createFileRoute('/register')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    redirect: typeof search.redirect === 'string' ? search.redirect : '/',
+  }),
   component: RegisterPage,
 })
 
 function RegisterPage() {
   const navigate = useNavigate()
+  const { redirect } = useSearch({ from: '/register' })
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -30,6 +34,11 @@ function RegisterPage() {
 
     if (registerError) {
       setError(registerError.message ?? 'Could not create account')
+      return
+    }
+
+    if (redirect.startsWith('/')) {
+      navigate({ to: redirect })
       return
     }
 
@@ -100,7 +109,11 @@ function RegisterPage() {
 
         <p className="mt-4 text-sm text-[var(--sea-ink-soft)]">
           Already registered?{' '}
-          <Link to="/login" className="font-semibold text-[var(--lagoon-deep)]">
+          <Link
+            to="/login"
+            search={{ redirect }}
+            className="font-semibold text-[var(--lagoon-deep)]"
+          >
             Login
           </Link>
         </p>

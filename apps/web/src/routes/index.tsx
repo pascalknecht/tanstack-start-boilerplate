@@ -18,13 +18,20 @@ function App() {
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
-            to="/login"
+            to="/dashboard"
             className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
+          >
+            Open Dashboard
+          </Link>
+          <Link
+            to="/login"
+            className="rounded-full border border-[rgba(23,58,64,0.2)] bg-white/50 px-5 py-2.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.35)]"
           >
             Login
           </Link>
           <Link
             to="/register"
+            search={{ redirect: '/' }}
             className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
           >
             Register
