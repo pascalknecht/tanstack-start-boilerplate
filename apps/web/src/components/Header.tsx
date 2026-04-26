@@ -1,25 +1,7 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
-import { authClient } from '../lib/auth-client'
+import { Link } from '@tanstack/react-router'
 import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
-  const navigate = useNavigate()
-  const { data: session, isPending } = authClient.useSession()
-  const [isSigningOut, setIsSigningOut] = useState(false)
-  const [isHydrated, setIsHydrated] = useState(false)
-
-  useEffect(() => {
-    setIsHydrated(true)
-  }, [])
-
-  async function onSignOut() {
-    setIsSigningOut(true)
-    await authClient.signOut()
-    setIsSigningOut(false)
-    navigate({ to: '/login' })
-  }
-
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
       <nav className="page-wrap flex items-center justify-between gap-3 py-3 sm:py-4">
@@ -85,50 +67,19 @@ export default function Header() {
           </a>
 
           <ThemeToggle />
-          {isHydrated && !isPending && !session ? (
-            <>
-              <Link
-                to="/login"
-                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                search={{ redirect: '/' }}
-                className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.2)] px-3 py-1.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:bg-[rgba(79,184,178,0.3)]"
-              >
-                Get Started
-              </Link>
-            </>
-          ) : null}
-          {isHydrated && !isPending && session ? (
-            <>
-              <span className="hidden text-xs font-semibold text-[var(--sea-ink-soft)] sm:inline">
-                {session.user.name}
-              </span>
-              <Link
-                to="/dashboard"
-                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
-              >
-                Dashboard
-              </Link>
-              <button
-                type="button"
-                onClick={onSignOut}
-                disabled={isSigningOut}
-                className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-xs text-[var(--sea-ink)] transition hover:bg-[var(--link-bg-hover)] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isSigningOut ? 'Signing out...' : 'Sign out'}
-              </button>
-            </>
-          ) : null}
-          {!isHydrated || isPending ? (
-            <div
-              aria-hidden="true"
-              className="h-9 w-[9.5rem] rounded-full border border-transparent"
-            />
-          ) : null}
+          <Link
+            to="/login"
+            className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+          >
+            Login
+          </Link>
+          <Link
+            to="/register"
+            search={{ redirect: '/' }}
+            className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.2)] px-3 py-1.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:bg-[rgba(79,184,178,0.3)]"
+          >
+            Get Started
+          </Link>
         </div>
       </nav>
     </header>
