@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="page-wrap py-16">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <div className="col-span-2 md:col-span-1">
-            <p className="mb-2 text-lg font-semibold text-foreground">TanStack Start</p>
+            <p className="mb-2 text-lg font-semibold text-foreground">Sample Logo</p>
             <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
               The modern platform for growing teams. Ship faster, together.
             </p>
@@ -40,13 +40,13 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://github.com/TanStack" className="transition-colors hover:text-foreground">
-                  GitHub
+                <a href="#" className="transition-colors hover:text-foreground">
+                  Careers
                 </a>
               </li>
               <li>
-                <a href="https://x.com/tan_stack" className="transition-colors hover:text-foreground">
-                  X
+                <a href="#" className="transition-colors hover:text-foreground">
+                  Contact
                 </a>
               </li>
             </ul>
@@ -56,20 +56,13 @@ export default function Footer() {
             <h3 className="mb-4 text-sm font-semibold text-foreground">Resources</h3>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
               <li>
-                <a
-                  href="https://tanstack.com/start/latest/docs/framework/react/overview"
-                  className="transition-colors hover:text-foreground"
-                >
-                  Documentation
-                </a>
+                <a href="#" className="transition-colors hover:text-foreground">Documentation</a>
               </li>
               <li>
-                <a
-                  href="https://tanstack.com/router"
-                  className="transition-colors hover:text-foreground"
-                >
-                  Router
-                </a>
+                <a href="#" className="transition-colors hover:text-foreground">Help Center</a>
+              </li>
+              <li>
+                <a href="#" className="transition-colors hover:text-foreground">API Reference</a>
               </li>
             </ul>
           </div>

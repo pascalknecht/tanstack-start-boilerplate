@@ -91,8 +91,8 @@ export function FeaturesSection() {
                 key={feature.title}
                 className="group rounded-2xl border border-border bg-card p-6 transition-all hover:border-foreground/10 hover:shadow-md"
               >
-                <div className="mb-4 flex size-10 items-center justify-center rounded-xl bg-gray-100">
-                  <feature.icon className="size-5 text-gray-700" />
+                <div className="mb-4 flex size-10 items-center justify-center rounded-xl bg-primary/10">
+                  <feature.icon className="size-5 text-primary" />
                 </div>
                 <h3 className="mb-2 text-base font-semibold">{feature.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
@@ -124,7 +124,7 @@ export function FeaturesSection() {
           <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-3">
             {steps.map((step) => (
               <div key={step.step} className="text-center">
-                <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-gray-900 text-white">
+                <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
                   <span className="text-sm font-bold">{step.step}</span>
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">{step.title}</h3>
