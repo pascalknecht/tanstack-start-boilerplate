@@ -1,5 +1,6 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
+import { Button } from '#/components/ui/button'
 import { authClient } from '../lib/auth-client'
 
 export default function Header() {
@@ -15,14 +16,14 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/75 px-4 backdrop-blur-xl">
       <nav className="page-wrap flex items-center justify-between gap-3 py-3 sm:py-4">
         <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(15,23,42,0.08)] sm:px-4 sm:py-2"
+            className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-3 py-1.5 text-sm text-foreground no-underline shadow-sm sm:px-4 sm:py-2"
           >
-            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[linear-gradient(135deg,#0f172a,#334155)] text-xs font-bold text-white">
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
               S
             </span>
             Sample Logo
@@ -32,57 +33,50 @@ export default function Header() {
         <div className="hidden items-center gap-1 md:flex">
           <a
             href="#features"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             Features
           </a>
           <a
             href="#how-it-works"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             How It Works
           </a>
           <a
             href="#pricing"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
+            className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
             Pricing
           </a>
         </div>
 
         <div className="ml-auto flex items-center gap-1.5 sm:ml-0 sm:gap-2">
-          <Link
-            to="/login"
-            className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            search={{ redirect: '/' }}
-            className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:bg-[var(--link-bg-hover)]"
-          >
-            Get Started
-          </Link>
+          <Button asChild size="sm" variant="ghost">
+            <Link to="/login">Login</Link>
+          </Button>
+          <Button asChild size="sm">
+            <Link to="/register" search={{ redirect: '/' }}>
+              Get Started
+            </Link>
+          </Button>
           {!isPending && session ? (
             <>
-              <span className="hidden text-xs font-semibold text-[var(--sea-ink-soft)] sm:inline">
+              <span className="hidden text-xs font-semibold text-muted-foreground sm:inline">
                 {session.user.name}
               </span>
-              <Link
-                to="/dashboard"
-                className="rounded-xl px-3 py-2 text-sm font-medium text-[var(--sea-ink-soft)] transition-colors hover:text-[var(--sea-ink)]"
-              >
-                Dashboard
-              </Link>
-              <button
+              <Button asChild size="sm" variant="ghost">
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+              <Button
                 type="button"
+                size="sm"
+                variant="outline"
                 onClick={onSignOut}
                 disabled={isSigningOut}
-                className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-xs text-[var(--sea-ink)] transition hover:bg-[var(--link-bg-hover)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSigningOut ? 'Signing out...' : 'Sign out'}
-              </button>
+              </Button>
             </>
           ) : null}
         </div>

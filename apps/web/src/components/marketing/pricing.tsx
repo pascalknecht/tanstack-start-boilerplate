@@ -1,5 +1,7 @@
 import { Check } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
+import { Badge } from '#/components/ui/badge'
+import { Button } from '#/components/ui/button'
 
 const plans = [
   {
@@ -81,15 +83,15 @@ export function PricingSection() {
               key={plan.name}
               className={`relative flex flex-col rounded-2xl border p-8 transition-all ${
                 plan.highlighted
-                  ? 'border-slate-300 bg-card shadow-lg'
+                  ? 'border-primary/35 bg-card shadow-lg'
                   : 'border-border bg-card hover:border-foreground/10 hover:shadow-md'
               }`}
             >
               {plan.badge ? (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white">
+                  <Badge className="rounded-full px-3 py-1 text-xs font-medium">
                     {plan.badge}
-                  </span>
+                  </Badge>
                 </div>
               ) : null}
               <div className="mb-6">
@@ -103,22 +105,21 @@ export function PricingSection() {
               <ul className="mb-8 flex-1 space-y-3">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
-                    <Check className="mt-0.5 size-4 shrink-0 text-gray-700" />
+                    <Check className="mt-0.5 size-4 shrink-0 text-primary" />
                     <span className="text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/register"
-                search={{ redirect: '/' }}
-                className={`inline-flex w-full items-center justify-center rounded-lg border px-4 py-2 text-sm font-medium transition ${
-                  plan.ctaVariant === 'default'
-                    ? 'border-gray-900 bg-gray-900 text-white hover:bg-gray-800'
-                    : 'border-border bg-background text-foreground hover:bg-muted'
-                }`}
+              <Button
+                asChild
+                className="w-full"
+                variant={plan.ctaVariant}
+                size="lg"
               >
-                {plan.cta}
-              </Link>
+                <Link to="/register" search={{ redirect: '/' }}>
+                  {plan.cta}
+                </Link>
+              </Button>
             </div>
           ))}
         </div>
