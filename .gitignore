@@ -44,3 +44,6 @@ next-env.d.ts
 .vscode
 
 .turbo
+
+# local pglite database files
+apps/web/.pglite

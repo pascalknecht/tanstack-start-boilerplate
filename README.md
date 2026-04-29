@@ -26,13 +26,9 @@ A production-ready monorepo starter built around **TanStack Start**, **TanStack 
 │       │   ├── routes/       # File-based routes
 │       │   ├── router.tsx    # Router creation and registration
 │       │   └── styles.css    # Global Tailwind + theme styles
+│       ├── prisma/           # Prisma schema for local pglite database
 │       ├── vite.config.ts    # Vite + TanStack Start plugin config
 │       └── tsconfig.json
-├── docker/
-│   └── pgadmin/              # pgAdmin server pre-configuration
-├── Dockerfile                # Production image
-├── Dockerfile.dev            # Development image
-├── docker-compose.dev.yml    # PostgreSQL + pgAdmin (development tooling)
 ├── turbo.json
 ├── pnpm-workspace.yaml
 └── .env.example
@@ -57,7 +53,7 @@ pnpm install
 cp .env.example .env
 ```
 
-The starter works without mandatory secrets by default. Keep `NODE_ENV` and `DOCKER` settings aligned with your runtime environment as needed.
+The starter works without mandatory secrets by default.
 
 ### 3. Start development
 
@@ -97,27 +93,14 @@ For app-scoped commands, run from `apps/web`:
 
 Routes are defined as files in `apps/web/src/routes`. TanStack Router generates a route tree automatically and keeps route typing in sync.
 
-## Docker
+## Database (Prisma + pglite)
 
-Development docker-compose provides database tooling:
+This starter uses Prisma with a local file-backed [pglite](https://pglite.dev/) database, so Docker is not required.
 
-- PostgreSQL
-- pgAdmin
-
-Start:
+Initialize and sync the local auth schema:
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d
+pnpm --filter @repo/web sync:auth-schema
 ```
 
-Recreate:
-
-```bash
-docker compose -f docker-compose.dev.yml down --remove-orphans
-docker compose -f docker-compose.dev.yml up -d --force-recreate
-```
-
-| Service    | Default host port | Description            |
-| ---------- | ----------------- | ---------------------- |
-| `postgres` | `localhost:5432`  | PostgreSQL 17 database         |
-| `pgadmin`  | `localhost:5050`  | pgAdmin web UI (tanstack_start) |
+By default the database files are stored at `apps/web/.pglite`. Override with `DATABASE_DIR` in `.env`.
