@@ -77,3 +77,8 @@ export const prismaReady = globalForPrisma.__prismaReadyPromise ?? initializePri
 if (!globalForPrisma.__prismaReadyPromise) {
   globalForPrisma.__prismaReadyPromise = prismaReady
 }
+
+export const closePrismaDb = async () => {
+  await prisma.$disconnect()
+  await pgliteClient.close()
+}
