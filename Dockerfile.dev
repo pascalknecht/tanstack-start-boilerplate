@@ -1,6 +1,6 @@
-FROM node:22-alpine
+FROM node:26-alpine
 
-RUN corepack enable && corepack prepare pnpm@10.6.2 --activate
+RUN npm install -g pnpm@10.6.2
 
 WORKDIR /app
 
@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "--filter", "@repo/web", "dev", "--host", "0.0.0.0"]
