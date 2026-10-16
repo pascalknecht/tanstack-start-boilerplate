@@ -1,11 +1,13 @@
 import { Link, createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
-import { authClient } from '../lib/auth-client'
-import { getSession } from '../lib/auth-helpers'
+import { authClient } from '#/lib/auth-client'
+import { getSession } from '#/lib/auth-helpers'
+import { assertTenantSite } from '#/lib/tenancy/guards'
 
 export const Route = createFileRoute('/login')({
-  beforeLoad: async () => {
+  beforeLoad: async ({ context }) => {
+    assertTenantSite(context.site)
     const session = await getSession()
 
     if (session) {
@@ -17,7 +19,7 @@ export const Route = createFileRoute('/login')({
 
 function LoginPage() {
   const navigate = useNavigate()
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -27,8 +29,8 @@ function LoginPage() {
     setError(null)
     setIsSubmitting(true)
 
-    const { error } = await authClient.signIn.username({
-      username,
+    const { error } = await authClient.signIn.email({
+      email,
       password,
     })
 
@@ -50,21 +52,22 @@ function LoginPage() {
           Login
         </h1>
         <p className="mb-6 text-sm text-[var(--sea-ink-soft)]">
-          Use your username and password to sign in.
+          Use your email and password to sign in.
         </p>
 
         <form className="space-y-4" onSubmit={onSubmit}>
           <div>
             <label className="mb-1 block text-sm font-semibold text-[var(--sea-ink)]">
-              Username
+              Email
             </label>
             <input
               required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               className="w-full rounded-xl border border-[var(--line)] bg-[var(--surface-strong)] px-3 py-2 text-sm outline-none ring-[rgba(15,23,42,0.2)] focus:ring-2"
-              placeholder="your_username"
-              autoComplete="username"
+              placeholder="you@example.com"
+              autoComplete="email"
             />
           </div>
 

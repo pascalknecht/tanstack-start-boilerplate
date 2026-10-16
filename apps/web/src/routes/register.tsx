@@ -1,11 +1,15 @@
 import { Link, createFileRoute, useNavigate, useSearch } from '@tanstack/react-router'
 import { useState } from 'react'
-import { authClient } from '../lib/auth-client'
+import { authClient } from '#/lib/auth-client'
+import { assertTenantSite } from '#/lib/tenancy/guards'
 
 export const Route = createFileRoute('/register')({
   validateSearch: (search: Record<string, unknown>) => ({
     redirect: typeof search.redirect === 'string' ? search.redirect : '/',
   }),
+  beforeLoad: ({ context }) => {
+    assertTenantSite(context.site)
+  },
   component: RegisterPage,
 })
 
@@ -13,7 +17,7 @@ function RegisterPage() {
   const navigate = useNavigate()
   const { redirect } = useSearch({ from: '/register' })
   const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -25,8 +29,7 @@ function RegisterPage() {
 
     const { error: registerError } = await authClient.signUp.email({
       name,
-      email: `${username.toLowerCase()}@local.invalid`,
-      username,
+      email,
       password,
     })
 
@@ -53,7 +56,7 @@ function RegisterPage() {
           Create account
         </h1>
         <p className="mb-6 text-sm text-[var(--sea-ink-soft)]">
-          Sign up with username and password.
+          Sign up with your email and a password.
         </p>
 
         <form className="space-y-4" onSubmit={onSubmit}>
@@ -69,13 +72,15 @@ function RegisterPage() {
           </label>
 
           <label className="block text-sm font-semibold text-[var(--sea-ink)]">
-            Username
+            Email
             <input
               required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
               className="mt-1 w-full rounded-xl border border-[var(--line)] bg-white/70 px-3 py-2 text-sm outline-none focus:border-slate-400"
-              placeholder="jane_doe"
+              placeholder="you@example.com"
             />
           </label>
 

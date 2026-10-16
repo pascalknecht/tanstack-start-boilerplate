@@ -9,10 +9,12 @@
     "typecheck": "turbo typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "turbo test",
+    "test:integration": "turbo test:integration",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "db:generate": "pnpm --filter @repo/web db:generate",
     "db:migrate": "pnpm --filter @repo/web db:migrate",
-    "db:studio": "pnpm --filter @repo/web db:studio"
+    "db:studio": "pnpm --filter @repo/web db:studio",
+    "db:seed": "pnpm --filter @repo/web db:seed"
   },
   "devDependencies": {
     "prettier": "^3.9.10",

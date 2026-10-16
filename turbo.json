@@ -8,7 +8,12 @@
     "VERCEL",
     "VERCEL_URL"
   ],
-  "globalPassThroughEnv": ["DATABASE_URL", "BETTER_AUTH_SECRET", "BETTER_AUTH_URL"],
+  "globalPassThroughEnv": [
+    "DATABASE_URL",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_URL",
+    "APP_ROOT_DOMAIN"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -23,6 +28,10 @@
     },
     "test": {
       "dependsOn": ["^test"]
+    },
+    "test:integration": {
+      "cache": false,
+      "passThroughEnv": ["TEST_DATABASE_URL"]
     },
     "dev": {
       "cache": false
