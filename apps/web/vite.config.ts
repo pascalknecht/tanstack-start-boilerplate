@@ -16,10 +16,21 @@ const config = defineConfig(({ mode }) => {
   // process.env without overriding values already set by the environment.
   process.env = { ...loadEnv(mode, envDir, ''), ...process.env }
 
+  // Vercel builds emit the Build Output API; everything else (Docker, `pnpm
+  // start`) gets a standalone Node server. NITRO_PRESET overrides both.
+  const preset =
+    process.env.NITRO_PRESET ?? (process.env.VERCEL ? 'vercel' : 'node-server')
+
   return {
     envDir,
     resolve: { tsconfigPaths: true },
-    plugins: [devtools(), tailwindcss(), tanstackStart(), nitro(), viteReact()],
+    plugins: [
+      devtools(),
+      tailwindcss(),
+      tanstackStart(),
+      nitro({ preset }),
+      viteReact(),
+    ],
   }
 })
 
