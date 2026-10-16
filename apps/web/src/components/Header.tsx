@@ -1,20 +1,8 @@
-import { Link, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
+import { Link } from '@tanstack/react-router'
 import { Button } from '#/components/ui/button'
-import { authClient } from '../lib/auth-client'
+import { GET_STARTED_HREF } from '#/components/marketing/links'
 
 export default function Header() {
-  const navigate = useNavigate()
-  const { data: session, isPending } = authClient.useSession()
-  const [isSigningOut, setIsSigningOut] = useState(false)
-
-  async function onSignOut() {
-    setIsSigningOut(true)
-    await authClient.signOut()
-    setIsSigningOut(false)
-    navigate({ to: '/login' })
-  }
-
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/75 px-4 backdrop-blur-xl">
       <nav className="page-wrap flex items-center justify-between gap-3 py-3 sm:py-4">
@@ -52,33 +40,9 @@ export default function Header() {
         </div>
 
         <div className="ml-auto flex items-center gap-1.5 sm:ml-0 sm:gap-2">
-          <Button asChild size="sm" variant="ghost">
-            <Link to="/login">Login</Link>
-          </Button>
           <Button asChild size="sm">
-            <Link to="/register" search={{ redirect: '/' }}>
-              Get Started
-            </Link>
+            <a href={GET_STARTED_HREF}>Get Started</a>
           </Button>
-          {!isPending && session ? (
-            <>
-              <span className="hidden text-xs font-semibold text-muted-foreground sm:inline">
-                {session.user.name}
-              </span>
-              <Button asChild size="sm" variant="ghost">
-                <Link to="/dashboard">Dashboard</Link>
-              </Button>
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                onClick={onSignOut}
-                disabled={isSigningOut}
-              >
-                {isSigningOut ? 'Signing out...' : 'Sign out'}
-              </Button>
-            </>
-          ) : null}
         </div>
       </nav>
     </header>

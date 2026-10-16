@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { assertRootSite } from '#/lib/tenancy/guards'
 
 export const Route = createFileRoute('/about')({
+  beforeLoad: ({ context }) => assertRootSite(context.site),
   component: About,
 })
 

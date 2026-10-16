@@ -1,15 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { auth } from "@/lib/auth";
+import { createFileRoute } from '@tanstack/react-router'
+import { auth } from '#/lib/auth'
+import { getCurrentTenant } from '#/lib/tenancy/context'
 
-export const Route = createFileRoute("/api/auth/$")({
+function handle({ request }: { request: Request }) {
+  if (!getCurrentTenant()) {
+    return Response.json({ error: 'Not found' }, { status: 404 })
+  }
+  return auth.handler(request)
+}
+
+export const Route = createFileRoute('/api/auth/$')({
   server: {
     handlers: {
-      GET: async ({ request }: { request: Request }) => {
-        return auth.handler(request);
-      },
-      POST: async ({ request }: { request: Request }) => {
-        return auth.handler(request);
-      },
+      GET: handle,
+      POST: handle,
     },
   },
-});
+})

@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
+import { GET_STARTED_HREF } from './links'
 
 const plans = [
   {
@@ -116,9 +116,9 @@ export function PricingSection() {
                 variant={plan.ctaVariant}
                 size="lg"
               >
-                <Link to="/register" search={{ redirect: '/' }}>
+                <a href={GET_STARTED_HREF}>
                   {plan.cta}
-                </Link>
+                </a>
               </Button>
             </div>
           ))}

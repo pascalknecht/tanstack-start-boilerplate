@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
-import { Link } from '@tanstack/react-router'
 import { Button } from '#/components/ui/button'
+import { GET_STARTED_HREF } from './links'
 
 export function CallToAction() {
   return (
@@ -16,10 +16,10 @@ export function CallToAction() {
           </p>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild variant="secondary" size="lg">
-              <Link to="/register" search={{ redirect: '/' }}>
+              <a href={GET_STARTED_HREF}>
                 Start Free Trial
                 <ArrowRight className="size-4" />
-              </Link>
+              </a>
             </Button>
             <Button
               asChild

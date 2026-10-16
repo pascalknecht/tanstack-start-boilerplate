@@ -2,9 +2,9 @@
 
 import { ArrowRight, Sparkles } from 'lucide-react'
 import type { CSSProperties, ReactNode } from 'react'
-import { Link } from '@tanstack/react-router'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
+import { GET_STARTED_HREF } from './links'
 
 function FloatingCard({
   title,
@@ -80,10 +80,10 @@ export function HeroSection() {
 
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild size="lg">
-              <Link to="/register" search={{ redirect: '/dashboard' }}>
+              <a href={GET_STARTED_HREF}>
                 Start Free Trial
                 <ArrowRight className="size-4" />
-              </Link>
+              </a>
             </Button>
             <Button asChild size="lg" variant="outline">
               <a href="#features">See How It Works</a>

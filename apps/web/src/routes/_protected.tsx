@@ -1,8 +1,10 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
-import { getSession } from '../lib/auth-helpers'
+import { getSession } from '#/lib/auth-helpers'
+import { assertTenantSite } from '#/lib/tenancy/guards'
 
 export const Route = createFileRoute('/_protected')({
-  beforeLoad: async ({ location }) => {
+  beforeLoad: async ({ context, location }) => {
+    assertTenantSite(context.site)
     const session = await getSession()
 
     if (!session) {
