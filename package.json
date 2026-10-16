@@ -1,5 +1,5 @@
 {
-  "name": "tanstack-start-boilerplate",
+  "name": "notilearn",
   "private": true,
   "scripts": {
     "build": "turbo build",

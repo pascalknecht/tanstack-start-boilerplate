@@ -24,9 +24,9 @@ export default function Header() {
             className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background px-3 py-1.5 text-sm text-foreground no-underline shadow-sm sm:px-4 sm:py-2"
           >
             <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-              S
+              N
             </span>
-            Sample Logo
+            Notilearn
           </Link>
         </h2>
 

@@ -1,6 +1,8 @@
-# TanStack Start Boilerplate
+# Notilearn
 
-A production-ready monorepo starter built around **TanStack Start**, **TanStack Router**, **React 19**, **Tailwind CSS v4**, and **Turborepo**.
+Notilearn is a multi-tenant e-learning platform that imports courses from Notion. Every academy (tenant) lives on its own subdomain (`acme.notilearn.com`) or custom domain, with its own learners and accounts.
+
+The app is a **TanStack Start** + **React 19** monorepo (Turborepo, pnpm) backed by PostgreSQL, Drizzle ORM and Better Auth.
 
 ## Tech Stack
 
@@ -131,7 +133,7 @@ docker compose -f docker-compose.dev.yml up -d --force-recreate
 | Service    | Default host port | Description            |
 | ---------- | ----------------- | ---------------------- |
 | `postgres` | `localhost:5432`  | PostgreSQL 17 database         |
-| `pgadmin`  | `localhost:5050`  | pgAdmin web UI (tanstack_start) |
+| `pgadmin`  | `localhost:5050`  | pgAdmin web UI (notilearn) |
 
 ## Production
 

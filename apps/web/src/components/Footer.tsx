@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="page-wrap py-16">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <div className="col-span-2 md:col-span-1">
-            <p className="mb-2 text-lg font-semibold text-foreground">Sample Logo</p>
+            <p className="mb-2 text-lg font-semibold text-foreground">Notilearn</p>
             <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
               The modern platform for growing teams. Ship faster, together.
             </p>
