@@ -2,14 +2,20 @@ FROM node:26-alpine
 
 RUN npm install -g pnpm@10.6.2
 
+# Run as the image's non-root user (uid 1000) so files the dev server writes
+# into the bind-mounted source tree (e.g. routeTree.gen.ts) are not root-owned.
 WORKDIR /app
+RUN chown node:node /app
+USER node
 
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
-COPY apps/web/package.json ./apps/web/package.json
+COPY --chown=node:node package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY --chown=node:node apps/web/package.json ./apps/web/package.json
 
 RUN pnpm install --frozen-lockfile
 
-COPY . .
+COPY --chown=node:node . .
+
+ENV DOCKER=1
 
 EXPOSE 3000
 

@@ -33,7 +33,7 @@ A production-ready monorepo starter built around **TanStack Start**, **TanStack 
 │   └── pgadmin/              # pgAdmin server pre-configuration
 ├── Dockerfile                # Production image
 ├── Dockerfile.dev            # Development image
-├── docker-compose.dev.yml    # PostgreSQL + pgAdmin (development tooling)
+├── docker-compose.dev.yml    # Web app + PostgreSQL + pgAdmin (development)
 ├── turbo.json
 ├── pnpm-workspace.yaml
 └── .env.example
@@ -110,28 +110,47 @@ Routes are defined as files in `apps/web/src/routes`. TanStack Router generates 
 
 ## Docker
 
-Development docker-compose provides database tooling:
+Development docker-compose runs the whole stack, so only Docker is required on the host:
 
+- Web app (Vite dev server built from `Dockerfile.dev`)
 - PostgreSQL
 - pgAdmin
 
 Start:
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d
+cp .env.example .env   # optional, but needed for a real BETTER_AUTH_SECRET
+docker compose -f docker-compose.dev.yml up -d --build
+```
+
+The `web` service applies the Better Auth migrations on startup, then serves the app on [http://localhost:3000](http://localhost:3000). The repository is bind-mounted into the container, so edits on the host hot-reload. `DATABASE_URL` is overridden to point at the `postgres` service; the rest of `.env` is read as usual.
+
+Dependencies live in the container's own `node_modules` volumes. After changing `package.json` or `pnpm-lock.yaml`, rebuild and renew those volumes:
+
+```bash
+docker compose -f docker-compose.dev.yml up -d --build --renew-anon-volumes web
+```
+
+To run only the database tooling and keep using `pnpm dev` on the host:
+
+```bash
+docker compose -f docker-compose.dev.yml up -d postgres pgadmin
 ```
 
 Recreate:
 
 ```bash
 docker compose -f docker-compose.dev.yml down --remove-orphans
-docker compose -f docker-compose.dev.yml up -d --force-recreate
+docker compose -f docker-compose.dev.yml up -d --build --force-recreate
 ```
 
-| Service    | Default host port | Description            |
-| ---------- | ----------------- | ---------------------- |
-| `postgres` | `localhost:5432`  | PostgreSQL 17 database         |
+| Service    | Default host port | Description                     |
+| ---------- | ----------------- | ------------------------------- |
+| `web`      | `localhost:3000`  | TanStack Start dev server       |
+| `postgres` | `localhost:5432`  | PostgreSQL 17 database          |
 | `pgadmin`  | `localhost:5050`  | pgAdmin web UI (tanstack_start) |
+
+Override the host ports with `WEB_PORT`, `POSTGRES_PORT`, and `PGADMIN_PORT`.
 
 ## Production
 
